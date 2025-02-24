@@ -25,10 +25,64 @@ on high-dimensional framework. It notably features:
 
 ## Installation
 
-`Sparkle` can also be installed from sources using
+This section describes how to install the necessary dependencies to 
+set up the package.
+
+### 1. Install SWIG
+
+`Sparkle` uses a `C++` core code for computationally intensive 
+components, ensuring both efficiency and performance. The binding between `C++` 
+and `Python` is handled through `SWIG` wrapper code.
+
+So first, you need to install `SWIG`. Below are the instructions for various platforms.
+
+#### **Anaconda/Miniconda**
+
+If you're using Anaconda or Miniconda, install `SWIG` from the `conda-forge` channel:
+
 ```bash
-git clone https://github.com/romain-e-lacoste/sparkle
+conda install -c conda-forge swig
+```
+
+#### **Linux (Ubuntu/Debian)**
+
+On Ubuntu or Debian-based systems, you can install `SWIG` using `apt`:
+
+```bash
+sudo apt update
+sudo apt install swig
+```
+
+#### **macOS (Homebrew)**
+
+On macOS, you can install `SWIG` using `Homebrew`:
+
+```bash
+brew install swig
+```
+
+#### Windows 
+
+For Windows, follow these steps:
+
+1. Download the latest SWIG release from the [SWIG website](http://www.swig.org/download.html)
+2. Add the SWIG folder to your system's PATH environment variable
+
+### 2. Get the Source Code
+
+Clone the repository to get the latest version of the source code:
+
+```bash
+git clone https://github.com/romain-e-lacoste/sparkle.git
 cd sparkle
+```
+
+### 3. Install the Package
+
+It's recommended to set up a dedicated Python environment (e.g., using venv or conda). 
+Once your environment is ready, install the package by running:
+
+```bash
 pip install .
 ```
 
