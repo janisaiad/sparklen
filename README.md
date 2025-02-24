@@ -1,6 +1,6 @@
 
 <a href="https://github.com/romain-e-lacoste/sparkle">
-    <img src="doc/logos/sparkle-logo-white.svg" alt="Sparkle white logo" width=96/>
+    <img src="doc/logos/sparkle-logo-black.svg" alt="Sparkle black logo" width=96/>
 </a>
 
 
