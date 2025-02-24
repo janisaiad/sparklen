@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+  "setuptools",
+  "numpy",
+  "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Sparkle"
+version = "0.1.0"
+requires-python = ">=3.8"
+authors = [
+  {name = "Romain E. Lacoste", email = "romain.lacoste@polytechnique.edu"}
+]
+maintainers = [
+  {name = "Romain E. Lacoste", email = "romain.lacoste@polytechnique.edu"}
+]
+description = "A statistical learning toolkit for high-dimensional Hawkes processes in Python"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+classifiers = [
+	"Development Status :: 4 - Beta",
+	"Intended Audience :: Science/Research",
+	"Intended Audience :: Developers",
+	"Programming Language :: C++",
+	"Programming Language :: Python",
+	"Topic :: Software Development :: Libraries",
+	"Topic :: Scientific/Engineering",
+	"Operating System :: POSIX :: Linux",
+	"Operating System :: Microsoft :: Windows",
+	"Operating System :: MacOS",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"License :: OSI Approved :: BSD License"
+]
+
+[project.urls]
+Homepage = "https://github.com/romain-e-lacoste/sparkle"
+Repository = "https://github.com/romain-e-lacoste/sparkle.git"
+
+[tool.ruff]
+line-length = 88
+max-complexity = 10
+target-version = "py39"
+fix = true
+
+[tool.ruff.lint]
+# Linting-related configuration
+select = ["E", "F", "I"]  # Select which checks to enable
+extend-ignore = ["E501", "F401"]  # Ignore specific rules
+exclude = ["tests/*", "docs/*"]  # Exclude files from linting

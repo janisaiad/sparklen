@@ -1,0 +1,62 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+**/.DS_Store
+.vscode/
+*.pkl
+
+# Distribution / packaging
+.python
+doc/_build
+/build/  
+**/build/*  
+!**/build/__init__.py 
+develop-eggs/
+dist/
+Debug/
+downloads/
+eggs/
+.eggs/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+ENV/
+*.venv
+
+# SWIG generated files
+*_wrap.cxx
+*_wrap.cpp
+*_wrap.o
+*_wrap.py
+*.so
+*.dll
+
+# linter
+.ruff_cache/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# vscode
+.vscode
+
+# Eclipse IDE files
+.project
+.cproject
