@@ -1,4 +1,10 @@
-# Sparkle
+
+<a href="https://github.com/romain-e-lacoste/sparkle">
+    <img src="doc/logo/sparkle-logo-white.svg" alt="Sparkle white logo" width=96/>
+</a>
+
+
+# Toolkit for Hawkes Processes in Python
 
 
 ### Goal
