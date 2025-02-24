@@ -19,7 +19,7 @@ on high-dimensional framework. It notably features:
   * A highly versatile and flexible framework for performing inference of 
     multivariate Hawkes process with exponential kernel. 
 
-  * Introduces novel approaches to address the challenge of multiclass 
+  * Novel approaches to address the challenge of multiclass 
     classification within the supervised learning framework.
 
 
