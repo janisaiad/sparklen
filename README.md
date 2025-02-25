@@ -65,10 +65,10 @@ brew install swig
 
 For Windows, follow these steps:
 
-1. Download the latest SWIG release from the [SWIG website](http://www.swig.org/download.html)
-2. Add the SWIG folder to your system's PATH environment variable
+1. Download the latest `SWIG` release from the [SWIG website](http://www.swig.org/download.html)
+2. Add the `SWIG` folder to your system's PATH environment variable
 
-You can also install it using [Chocolatey](https://community.chocolatey.org/packages/swig):
+If you are using Chocolatey you can also install `SWIG` by running:
 
 ```bash
 choco install swig
@@ -85,7 +85,7 @@ cd sparkle
 
 ### 3. Install the Package
 
-It's recommended to set up a dedicated Python environment (e.g., using venv or conda). 
+It's recommended to set up a dedicated Python environment (e.g., using `venv` or `conda`). 
 Once your environment is ready, install the package by running:
 
 ```bash
