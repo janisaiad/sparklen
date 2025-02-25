@@ -68,6 +68,12 @@ For Windows, follow these steps:
 1. Download the latest SWIG release from the [SWIG website](http://www.swig.org/download.html)
 2. Add the SWIG folder to your system's PATH environment variable
 
+You can also install it using [Chocolatey](https://community.chocolatey.org/packages/swig):
+
+```bash
+choco install swig
+```
+
 ### 2. Get the Source Code
 
 Clone the repository to get the latest version of the source code:
