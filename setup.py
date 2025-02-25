@@ -107,7 +107,7 @@ ext_sparkle_modules = [
 
 setup(
     name='Sparkle',
-    version='0.1.0',
+    version='1.0.0',
     author='Romain E. Lacoste',
     author_email='romain.lacoste@polytechnique.edu',
     url='https://github.com/romain-e-lacoste/sparkle',
