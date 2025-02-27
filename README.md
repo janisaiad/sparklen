@@ -9,7 +9,7 @@
 
 ## Goal
 
-The purpose of this package is to provide the `Python` community with 
+The purpose of `Sparkle` package is to provide the `Python` community with 
 a complete suite of cutting-edge tools specifically tailored for 
 the study of exponential Hawkes processes, with a particular focus 
 on high-dimensional framework. It notably features:
@@ -17,7 +17,8 @@ on high-dimensional framework. It notably features:
   * A efficient cluster-based simulation method for generating events.
 
   * A highly versatile and flexible framework for performing inference of 
-    multivariate Hawkes process with exponential kernel. 
+    multivariate Hawkes process with with built-in support for incorporating 
+	regularization. 
 
   * Novel approaches to address the challenge of multiclass 
     classification within the supervised learning framework.
@@ -94,10 +95,18 @@ pip install .
 
 ## Citing this work
 
-If this package was useful to you, please cite it in your work:
+If you found this package useful, please consider citing it in your work:
 
 ```bibtex
-
+@article{lacoste2025sparkle,
+      title={Sparkle: A Statistical Learning Toolkit for High-Dimensional Hawkes Processes in Python}, 
+      author={Lacoste, Romain E.},
+      year={2025},
+      eprint={2502.18979},
+      archivePrefix={arXiv},
+      primaryClass={stat.ME},
+      url={https://arxiv.org/abs/2502.18979}, 
+}
 ```
 
 ## Acknowledgement
