@@ -17,8 +17,7 @@ on high-dimensional framework. It notably features:
   * A efficient cluster-based simulation method for generating events.
 
   * A highly versatile and flexible framework for performing inference of 
-    multivariate Hawkes process with with built-in support for incorporating 
-	regularization. 
+    multivariate Hawkes process.
 
   * Novel approaches to address the challenge of multiclass 
     classification within the supervised learning framework.
