@@ -162,20 +162,6 @@ class LearnerHawkesExp():
         "elasticnet" : ProxElasticNet
     }
     
-    # _kappa_choices = {
-    #     "cv": {
-    #         "class": CalibrationCV, "hyperparameter": 5
-    #     },
-    #     "bic": {
-    #         "class": CalibrationEBIC, "hyperparameter": 0.0
-    #     },
-    #     "ebic05": {
-    #         "class": CalibrationEBIC, "hyperparameter": 0.5
-    #     },
-    #     "ebic10": {
-    #         "class": CalibrationEBIC, "hyperparameter": 1.0
-    #     }
-    # }
     _kappa_choices = {
         "cv" : CalibrationCV,
         "bic" : CalibrationEBIC,
@@ -221,7 +207,6 @@ class LearnerHawkesExp():
                 self._calibration = self._kappa_choices[kappa_choice](0.0, loss, penalty, optimizer, lr_scheduler, max_iter, tol, penalty_mu, verbose_bar, verbose)
             elif kappa_choice == "ebic":
                 self._calibration = self._kappa_choices[kappa_choice](gamma, loss, penalty, optimizer, lr_scheduler, max_iter, tol, penalty_mu, verbose_bar, verbose)
-           # self._calibration = self._kappa_choices[kappa_choice]["class"](self. _kappa_choices[kappa_choice]["hyperparameter"], loss, penalty, optimizer, lr_scheduler, max_iter, tol)
         else:
             self._calibration = None
             
@@ -274,9 +259,6 @@ class LearnerHawkesExp():
             self._prox.set_application_range(1, self._model.n_components()+1)
         
         # We tune kappa according to the chosen criteria
-        # self._calibration.set_model(self._model)
-        # self._calibration.set_optimizer(self._str_optimizer, self._str_penalty, self._str_lr_scheduler, self._max_iter, self._tol)
-        # self._calibration.grid_search()
         if self._str_penalty != "none":
             self._calibration.calibrate(self._decay, data, end_time)
             self._best_kappa = self._calibration.best_kappa
@@ -292,17 +274,6 @@ class LearnerHawkesExp():
         self._estimated_params = self._optimizer.minimizer
         
         self._is_fitted = True
-        
-        # self._model.data = data
-        # self._model.end_time = end_time
-        # self._model.decay = decay
-        # #1  Checker si data est bien fourni dans la bonne forme -> normalement géré dans la classe modèle
-        # #2. Checker si tous les attributs sont fixés-> set_model, set_prox etc...
-        # #3. Calculer kappa avec choix effectué par l'user -> avant de faire set prox du coup
-        # #4. Lancer le solver (arg: decay, model, penalite, kappa, step, tol, max_iter, verbose) -> a écrire en priorité
-        # #5. solved=True
-        # #6. A la fin, fitted=true
-        # pass
     
     @property
     def estimated_params(self):
