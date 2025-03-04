@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you found this package useful, please consider citing it in your work:"
 title: "Sparkle"
 type: software
-version: "1.0.0"
-date-released: "2025-02-25"
+version: 1.0.0
+date-released: 2025-02-25
 
 references:
   - type: article
@@ -12,8 +12,8 @@ references:
       - family-names: "Lacoste"
         given-names: "Romain Edmond"
         orcid: "https://orcid.org/0009-0006-7029-8000"  
-	year: "2025"
-	eprint: "2502.18979" 
+	year: 2025
+	eprint: 2502.18979
     archive-prefix: "arXiv" 
 	primaryClass: "stat.ME"
     url: "https://arxiv.org/abs/2502.18979"
