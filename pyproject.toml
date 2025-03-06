@@ -10,6 +10,7 @@ build-backend = "setuptools.build_meta"
 name = "Sparkle"
 version = "1.0.0"
 requires-python = ">=3.8"
+dynamic = ["dependencies"]
 authors = [
   {name = "Romain E. Lacoste", email = "romain.lacoste@polytechnique.edu"}
 ]
@@ -19,7 +20,9 @@ maintainers = [
 description = "A statistical learning toolkit for high-dimensional Hawkes processes in Python"
 readme = "README.md"
 license = {file = "LICENSE.txt"}
-keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+keywords = ["python", "machine-learning", "statistics", "optimization", "regularization",
+			"maximum-likelihood-estimation", "high-dimension", "hawkes-process",
+			"empirical-risk-minimization"]
 classifiers = [
 	"Development Status :: 4 - Beta",
 	"Intended Audience :: Science/Research",
