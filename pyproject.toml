@@ -7,10 +7,19 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "Sparkle"
+name = "sparklen"
 version = "1.0.0"
 requires-python = ">=3.8"
-dynamic = ["dependencies"]
+dependencies = [
+  "matplotlib",
+  "numpy",
+  "pandas",
+  "scipy",
+  "seaborn",
+  "scikit-learn",
+  "tabulate",
+  "tqdm"
+]
 authors = [
   {name = "Romain E. Lacoste", email = "romain.lacoste@polytechnique.edu"}
 ]
@@ -44,8 +53,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/romain-e-lacoste/sparkle"
-Repository = "https://github.com/romain-e-lacoste/sparkle.git"
+Homepage = "https://github.com/romain-e-lacoste/sparklen"
+Repository = "https://github.com/romain-e-lacoste/sparklen.git"
 
 [tool.ruff]
 line-length = 88

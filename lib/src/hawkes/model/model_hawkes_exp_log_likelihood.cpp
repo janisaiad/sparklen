@@ -1,7 +1,7 @@
 // Author : Romain E. Lacoste
 // License : BSD-3-Clause
 
-#include "sparkle/hawkes/model/model_hawkes_exp_log_likelihood.h"
+#include "sparklen/hawkes/model/model_hawkes_exp_log_likelihood.h"
 #include <iostream>
 
 

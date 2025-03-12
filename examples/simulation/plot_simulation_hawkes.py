@@ -4,7 +4,7 @@ Simulation of a Multivariate Hawkes Process (MHP)
 ===============================================================================
 
 The following provides a comprehensive guide to using 
-:class:`~sparkle.hawkes.simulation.SimuHawkesExp` to simulate the 
+:class:`~sparklen.hawkes.simulation.SimuHawkesExp` to simulate the 
 events of a MHP.  
 """
 
@@ -17,8 +17,8 @@ import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import numpy as np
 
-from sparkle.hawkes.simulation import SimuHawkesExp
-from sparkle.plot import plot_values
+from sparklen.hawkes.simulation import SimuHawkesExp
+from sparklen.plot import plot_values
 
 # Set the true coefficients ---------------------------------------------------
 

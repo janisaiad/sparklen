@@ -31,9 +31,9 @@ def run_swig(interface_file, output_file, include_dirs):
 
 def create_extension(module_name, module_dir, source_files):
     # Define directory paths
-    interface_dir = os.path.normpath(os.path.join('lib', 'interface', 'sparkle', module_dir))
+    interface_dir = os.path.normpath(os.path.join('lib', 'interface', 'sparklen', module_dir))
     src_dir = os.path.normpath(os.path.join('lib', 'src', module_dir))
-    build_dir = os.path.normpath(os.path.join('sparkle', module_dir, 'build'))
+    build_dir = os.path.normpath(os.path.join('sparklen', module_dir, 'build'))
     
     # Define file paths
     interface_file = os.path.normpath(os.path.join(interface_dir, f'{module_name}_module.i'))
@@ -46,8 +46,8 @@ def create_extension(module_name, module_dir, source_files):
     # Define include directories
     include_dirs = [
         os.path.normpath(os.path.join('lib', 'include')),
-        os.path.normpath(os.path.join('lib', 'include', 'sparkle')),
-        os.path.normpath(os.path.join('lib', 'interface', 'sparkle')),
+        os.path.normpath(os.path.join('lib', 'include', 'sparklen')),
+        os.path.normpath(os.path.join('lib', 'interface', 'sparklen')),
         os.path.normpath(os.path.join('lib', 'interface'))
     ]
     
@@ -62,7 +62,7 @@ def create_extension(module_name, module_dir, source_files):
     
     # Return the Extension object
     return Extension(
-        name=f"sparkle.{module_dir.replace('/', '.')}.build._{module_name}",
+        name=f"sparklen.{module_dir.replace('/', '.')}.build._{module_name}",
         sources=sources,
         include_dirs=include_dirs + [numpy.get_include()],
         extra_compile_args=extra_compile_args,
@@ -99,49 +99,16 @@ prox_extention = create_extension(
     ]
 )
 
-ext_sparkle_modules = [
+ext_sparklen_modules = [
     array_extension,
     hawkes_model_extension,
     prox_extention
 ]
 
 setup(
-    name='Sparkle',
-    version='1.0.0',
-    author='Romain E. Lacoste',
-    author_email='romain.lacoste@polytechnique.edu',
-    url='https://github.com/romain-e-lacoste/sparkle',
-    description='A statistical learning toolkit for high-dimensional Hawkes processes in Python',
-    ext_modules=ext_sparkle_modules,
+    ext_modules=ext_sparklen_modules,
     packages=find_packages(),
     include_package_data=True,
-    install_requires=[
-        'matplotlib',
-        'numpy',
-        'pandas',
-        'scipy',
-        'seaborn',
-        'scikit-learn',  
-        'tabulate',
-        'tqdm'
-    ],
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Science/Research',
-        'Intended Audience :: Developers',
-        'Programming Language :: C++',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Scientific/Engineering',
-        'Operating System :: POSIX :: Linux',
-        'Operating System :: Microsoft :: Windows',
-        'Operating System :: MacOS',
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.10',
-        'Programming Language :: Python :: 3.11',
-        'Programming Language :: Python :: 3.12',
-        'License :: OSI Approved :: BSD License'
-    ]
   )
   
-ensure_init_files('sparkle')   
+ensure_init_files('sparklen')   

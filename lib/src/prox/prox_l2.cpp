@@ -1,7 +1,7 @@
 // Author : Romain E. Lacoste
 // License : BSD-3-Clause
 
-#include "sparkle/prox/prox_l2.h"
+#include "sparklen/prox/prox_l2.h"
 
 // Constructor
 ProxL2::ProxL2(double pen_const, size_t st, size_t ed, bool pos){

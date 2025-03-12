@@ -1,7 +1,7 @@
 // Author : Romain E. Lacoste
 // License : BSD-3-Clause
 
-#include "sparkle/prox/prox_elastic_net.h"
+#include "sparklen/prox/prox_elastic_net.h"
 
 // Constructor
 ProxElasticNet::ProxElasticNet(double l1_r, double pen_const, size_t st, size_t ed, bool pos){

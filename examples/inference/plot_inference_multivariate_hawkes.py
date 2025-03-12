@@ -4,7 +4,7 @@ Inference of a Multivariate Hawkes Process (MHP)
 ===============================================================================
 
 The following provides a comprehensive guide to using 
-:class:`~sparkle.hawkes.inference.LearnerHawkesExp` to estimate a MHP.
+:class:`~sparklen.hawkes.inference.LearnerHawkesExp` to estimate a MHP.
 """
 
 # Author: Romain E. Lacoste
@@ -14,9 +14,9 @@ The following provides a comprehensive guide to using
 
 import numpy as np
 
-from sparkle.hawkes.inference import LearnerHawkesExp
-from sparkle.hawkes.simulation import SimuHawkesExp
-from sparkle.plot import plot_values
+from sparklen.hawkes.inference import LearnerHawkesExp
+from sparklen.hawkes.simulation import SimuHawkesExp
+from sparklen.plot import plot_values
 
 # Set the true coefficients ---------------------------------------------------
 

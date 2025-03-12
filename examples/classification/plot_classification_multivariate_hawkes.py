@@ -4,8 +4,8 @@ Classification of a bold_multivariate Hawkes Process (MHP)
 ===============================================================================
 
 The following provides a comprehensive guide to using 
-:class:`~sparkle.hawkes.classification.ERMCLassifier` and
-:class:`~sparkle.hawkes.classification.ERMLRCLassifier` for performing 
+:class:`~sparklen.hawkes.classification.ERMCLassifier` and
+:class:`~sparklen.hawkes.classification.ERMLRCLassifier` for performing 
 classification of a MHP. 
 """
 
@@ -17,14 +17,14 @@ classification of a MHP.
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-from sparkle.hawkes.classification import (
+from sparklen.hawkes.classification import (
     ERMCLassifier,
     ERMLRCLassifier,
     make_classification,
 )
-from sparkle.hawkes.inference import LearnerHawkesExp
-from sparkle.hawkes.simulation import SimuHawkesExp
-from sparkle.plot import plot_values
+from sparklen.hawkes.inference import LearnerHawkesExp
+from sparklen.hawkes.simulation import SimuHawkesExp
+from sparklen.plot import plot_values
 
 # Load the true coefficients --------------------------------------------------
 

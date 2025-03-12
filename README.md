@@ -1,6 +1,6 @@
 
-<a href="https://github.com/romain-e-lacoste/sparkle">
-    <img src="doc/logos/sparkle-logo-black.svg" alt="Sparkle black logo" width=250/>
+<a href="https://github.com/romain-e-lacoste/sparklen">
+    <img src="doc/logos/sparklen-logo-black.svg" alt="Sparklen black logo" width=250/>
 </a>
 
 
@@ -9,7 +9,7 @@
 
 ## Goal
 
-The purpose of `Sparkle` package is to provide the `Python` community with 
+The purpose of `Sparklen` package is to provide the `Python` community with 
 a complete suite of cutting-edge tools specifically tailored for 
 the study of exponential Hawkes processes, with a particular focus 
 on high-dimensional framework. It notably features:
@@ -30,7 +30,7 @@ set up the package.
 
 ### 1. Install SWIG
 
-`Sparkle` uses a `C++` core code for computationally intensive 
+`Sparklen` uses a `C++` core code for computationally intensive 
 components, ensuring both efficiency and performance. The binding between `C++` 
 and `Python` is handled through `SWIG` wrapper code.
 
@@ -79,8 +79,8 @@ choco install swig
 Clone the repository to get the latest version of the source code:
 
 ```bash
-git clone https://github.com/romain-e-lacoste/sparkle.git
-cd sparkle
+git clone https://github.com/romain-e-lacoste/sparklen.git
+cd sparklen
 ```
 
 ### 3. Install the Package

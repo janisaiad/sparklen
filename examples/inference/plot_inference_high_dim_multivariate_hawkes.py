@@ -5,7 +5,7 @@ Inference of a sparse high-dimensional Multivariate Hawkes Process (MHP)
 
 We shift our focus to a high-dimensional MHP where the interaction matrix 
 exhibits a sparse structure. This example provides a detailed walkthrough for 
-using:class:`~sparkle.hawkes.inference.LearnerHawkesExp`, showcasing
+using:class:`~sparklen.hawkes.inference.LearnerHawkesExp`, showcasing
 the specialized options designed for such cases. 
 """
 
@@ -16,9 +16,9 @@ the specialized options designed for such cases.
 
 import numpy as np
 
-from sparkle.hawkes.inference import LearnerHawkesExp
-from sparkle.hawkes.simulation import SimuHawkesExp
-from sparkle.plot import plot_values
+from sparklen.hawkes.inference import LearnerHawkesExp
+from sparklen.hawkes.simulation import SimuHawkesExp
+from sparklen.plot import plot_values
 
 # Load the true coefficients --------------------------------------------------
 
