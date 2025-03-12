@@ -39,7 +39,7 @@ pip install sparklen
 This section describes how to install the necessary dependencies to 
 set up the package.
 
-#### Step:1 Install `SWIG`
+#### 1. Install `SWIG`
 
 `Sparklen` uses a `C++` core code for computationally intensive 
 components, ensuring both efficiency and performance. The binding between `C++` 
@@ -86,7 +86,7 @@ If you are using Chocolatey you can also install `SWIG` by running:
 choco install swig
 ```
 
-#### Step 2: Get the Source Code
+#### 2. Get the Source Code
 
 Clone the repository to get the latest version of the source code:
 
@@ -95,7 +95,7 @@ git clone https://github.com/romain-e-lacoste/sparklen.git
 cd sparklen
 ```
 
-#### Step 3: Build and Install the Package
+#### 3. Build and Install the Package
 
 It's recommended to set up a dedicated Python environment (e.g., using `venv` or `conda`). 
 Once your environment is ready, install the package by running:
