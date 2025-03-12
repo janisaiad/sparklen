@@ -22,21 +22,33 @@ on high-dimensional framework. It notably features:
   * Novel approaches to address the challenge of multiclass 
     classification within the supervised learning framework.
 
+## Installation 
 
-## Installation
+You can install `Sparklen` using **pip**, or from **source**.
+
+### Install via pip
+
+The easiest way to install `Sparklen` is using `pip`:
+
+```bash
+pip install sparklen
+```
+
+### Install from Source 
 
 This section describes how to install the necessary dependencies to 
 set up the package.
 
-### 1. Install SWIG
+#### Step:1 Install `SWIG`
 
 `Sparklen` uses a `C++` core code for computationally intensive 
 components, ensuring both efficiency and performance. The binding between `C++` 
-and `Python` is handled through `SWIG` wrapper code.
+and `Python` is handled through `SWIG` wrapper code. Consequently, `SWIG` is 
+required to build the package.
 
 So first, you need to install `SWIG`. Below are the instructions for various platforms.
 
-#### **Anaconda/Miniconda**
+##### **Anaconda/Miniconda**
 
 If you're using Anaconda or Miniconda, install `SWIG` from the `conda-forge` channel:
 
@@ -44,7 +56,7 @@ If you're using Anaconda or Miniconda, install `SWIG` from the `conda-forge` cha
 conda install -c conda-forge swig
 ```
 
-#### **Linux (Ubuntu/Debian)**
+##### **Linux (Ubuntu/Debian)**
 
 On Ubuntu or Debian-based systems, you can install `SWIG` using `apt`:
 
@@ -53,7 +65,7 @@ sudo apt update
 sudo apt install swig
 ```
 
-#### **macOS (Homebrew)**
+##### **macOS (Homebrew)**
 
 On macOS, you can install `SWIG` using `Homebrew`:
 
@@ -61,7 +73,7 @@ On macOS, you can install `SWIG` using `Homebrew`:
 brew install swig
 ```
 
-#### Windows 
+##### Windows 
 
 For Windows, follow these steps:
 
@@ -74,7 +86,7 @@ If you are using Chocolatey you can also install `SWIG` by running:
 choco install swig
 ```
 
-### 2. Get the Source Code
+#### Step 2: Get the Source Code
 
 Clone the repository to get the latest version of the source code:
 
@@ -83,7 +95,7 @@ git clone https://github.com/romain-e-lacoste/sparklen.git
 cd sparklen
 ```
 
-### 3. Install the Package
+#### Step 3: Build and Install the Package
 
 It's recommended to set up a dedicated Python environment (e.g., using `venv` or `conda`). 
 Once your environment is ready, install the package by running:
@@ -92,7 +104,7 @@ Once your environment is ready, install the package by running:
 pip install .
 ```
 
-## Citing this work
+## Citing this Work
 
 If you found this package useful, please consider citing it in your work:
 
