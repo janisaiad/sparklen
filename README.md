@@ -4,11 +4,10 @@
 </a>
 
 
+# Toolkit for Hawkes Processes in Python
 [![Python](https://img.shields.io/pypi/pyversions/sparklen.svg)](https://badge.fury.io/py/sparklen)
 [![PyPI](https://img.shields.io/pypi/v/sparklen)](https://pypi.org/project/sparklen)
 [![arXiv](https://img.shields.io/badge/arXiv-2502.18979-b31b1b?logo=arXiv)](https://arxiv.org/abs/2502.18979)
-
-# Toolkit for Hawkes Processes in Python
 
 
 ## Goal
