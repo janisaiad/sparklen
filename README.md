@@ -1,8 +1,11 @@
 
 <a href="https://github.com/romain-e-lacoste/sparklen">
-    <img src="doc/logos/sparklen-logo-black.svg" alt="Sparklen black logo" width=250/>
+    <img src="doc/logos/sparklen-logo-black.svg" alt="Sparklen logo" width=250/>
 </a>
 
+[![Python](https://img.shields.io/pypi/pyversions/sparklen.svg)](https://badge.fury.io/py/sparklen)
+[![PyPI](https://badge.fury.io/py/sparklen.svg)](https://badge.fury.io/py/sparklen)
+[![arXiv](https://img.shields.io/badge/arXiv-2502.18979-b31b1b?logo=arXiv)](https://arxiv.org/abs/2502.18979)
 
 # Toolkit for Hawkes Processes in Python
 
