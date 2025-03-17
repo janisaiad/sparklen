@@ -29,7 +29,7 @@ size_t ModelHawkesExpLeastSquaresSingle::get_n_components(){
 	return n_components;
 }
 
-void ModelHawkesExpLeastSquaresSingle::compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay){
+/* void ModelHawkesExpLeastSquaresSingle::compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay){
 
 	for (size_t j=0; j<n_components; ++j){
 		const SharedArrayDouble1D &jump_times_j = jump_times[j];
@@ -55,7 +55,67 @@ void ModelHawkesExpLeastSquaresSingle::compute_weights(const ListSharedArrayDoub
 	}
 
 	weights_computed = true;
+} */
+
+void ModelHawkesExpLeastSquaresSingle::compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay){
+
+	for (size_t j=0; j<n_components; ++j){
+		const SharedArrayDouble1D &jump_times_j = jump_times[j];
+		N[j] = jump_times_j.size();
+		for (size_t j2=0; j2<n_components; ++j2){
+			const SharedArrayDouble1D &jump_times_j2 = jump_times[j2];
+			size_t h2 = 0;
+			double G = 0;
+			for (size_t h=0; h<jump_times_j.size(); ++h){
+				if (h > 0) {
+					G *= exp(-decay*(jump_times_j[h]-jump_times_j[h-1]));
+				}
+				while (h2 < jump_times_j2.size() && jump_times_j2[h2] <jump_times_j[h]){
+					G += decay*(exp(-decay*(jump_times_j[h]-jump_times_j2[h2])));
+					h2++;
+				}
+				D(j,j2) += G;
+				C(j,j2) += (1-exp(-2*decay*(end_time-jump_times_j[h])))*G;
+			}
+		}
+		for (size_t h=0; h<jump_times_j.size(); ++h){
+			H[j] += 1-exp(-decay*(end_time-jump_times_j[h]));
+			H2[j] += 1-exp(-2*decay*(end_time-jump_times_j[h]));
+		}
+		H2[j] *= decay/2;
+	}
+
+	weights_computed = true;
 }
+
+/* void ModelHawkesExpLeastSquaresSingle::compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay){
+
+	for (size_t j=0; j<n_components; ++j){
+		const SharedArrayDouble1D &jump_times_j = jump_times[j];
+		N[j] = jump_times_j.size();
+		SharedArrayDouble1D G(n_components);
+		ArrayInt1D h2 (n_components);
+		for (size_t h=0; h<jump_times_j.size(); ++h){
+			for (size_t j2=0; j2<n_components; ++j2){
+				const SharedArrayDouble1D &jump_times_j2 = jump_times[j2];
+				if (h > 0) {
+					G[j2] *= exp(-decay*(jump_times_j[h]-jump_times_j[h-1]));
+				}
+				while (h2[j2] < jump_times_j2.size() && jump_times_j2[h2[j2]] <jump_times_j[h]){
+					G[j2] += decay*(exp(-decay*(jump_times_j[h]-jump_times_j2[h2[j2]])));
+					h2[j2]++;
+				}
+				D(j,j2) += G[j2];
+				C(j,j2) += (1-exp(-2*decay*(end_time-jump_times_j[h])))*G[j2];
+			}
+			H[j] += 1-exp(-decay*(end_time-jump_times_j[h]));
+			H2[j] += 1-exp(-2*decay*(end_time-jump_times_j[h]));
+		}
+		H2[j] *= decay/2;
+	}
+
+	weights_computed = true;
+} */
 
 double ModelHawkesExpLeastSquaresSingle::compute_loss_i(const size_t i, const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay, const SharedArrayDouble2D &theta){
 
