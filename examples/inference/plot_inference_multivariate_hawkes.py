@@ -51,7 +51,7 @@ data = hawkes.timestamps
 # Perform estimation ----------------------------------------------------------
 
 learner = LearnerHawkesExp(
-    decay=beta, loss="least-squares", penalty="none", 
+    decay=beta, loss="log-likelihood", penalty="none", 
     optimizer="agd", lr_scheduler="backtracking", 
     max_iter=200, tol=1e-5, 
     verbose_bar=True, verbose=True, 

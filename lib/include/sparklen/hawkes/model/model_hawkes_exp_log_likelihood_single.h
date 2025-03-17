@@ -15,11 +15,9 @@ class ModelHawkesExpLogLikelihoodSingle{
 
 	size_t n_components;
 	ArrayInt1D N;
-	ArrayDouble1D H;
-	ListArrayDouble2D D;
+	ArrayDouble1D I;
+	ListArrayDouble2D Psi;
 	bool weights_computed;
-
-	void count_n_jumps_per_node(const ListSharedArrayDouble1D &jump_times);
 
 	void compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay);
 
