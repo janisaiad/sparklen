@@ -15,8 +15,8 @@ class ModelHawkesExpLeastSquaresSingle{
 
 	size_t n_components;
 	ArrayInt1D N;
-	ArrayDouble1D H, H2;
-	ArrayDouble2D D, C;
+	ArrayDouble1D I, I2;
+	ArrayDouble2D V, W;
 	bool weights_computed;
 
 	void compute_weights(const ListSharedArrayDouble1D &jump_times, const double end_time, const double decay);
