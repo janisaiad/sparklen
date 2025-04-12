@@ -27,6 +27,7 @@ class AGD(Optimizer):
             
         - 'lipschitz' : Lipschitz-based step size, usable only if the loss is gradient Lipschitz.
         - 'backtracking' : Backtracking line-search-based step size.
+        - 'fast-backtracking' : Two-Way Backtracking line-search-based step size.
         
     max_iter : int, default=100
         The maximum number of iterations allowed during the optimization process.
@@ -142,11 +143,11 @@ class AGD(Optimizer):
                 if self._verbose_bar and iteration % self._print_every == 0:
                     pbar.update(self._print_every)
                     if self._verbose:
-                        pbar.set_postfix({"Loss": loss_x_new, "Step Size": step_size})     
+                        pbar.set_postfix({"loss": loss_x_new, "lr": step_size})     
                 
                 # Record history based on record_every
                 if iteration % self._record_every == 0:
-                    self.record_history(x_new, loss_x_new, grad_x_new, rel_loss, iteration)
+                    self.record_history(x_new, loss_x_new, grad_x_new, step_size, rel_loss, iteration)
                     
                 # Check for convergence
                 converged = rel_loss < self._tol

@@ -58,11 +58,6 @@ class ProxL2(Prox):
         # Call the base class logic
         super().set_application_range(start, end)
         
-    # def set_prox(self, pen_const, start, end):
-    #     # Call the base class logic
-    #     super().set_prox(pen_const, start, end)
-    #     self._cpp_prox = CppProxL1(pen_const, start, end, self._positive)
-        
     def apply(self, x, step_size):
         """
         Apply the proximal operator to a point at the current iteration 
@@ -97,3 +92,6 @@ class ProxL2(Prox):
                  ["End of apply range", self._end],
                  ["Positivity constraint", self._positive]]
         print(tabulate(table, headers="firstrow", tablefmt="grid"))
+        
+    def __repr__(self):
+        return super().__repr__()

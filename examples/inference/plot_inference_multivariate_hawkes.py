@@ -52,16 +52,16 @@ data = hawkes.timestamps
 
 learner = LearnerHawkesExp(
     decay=beta, loss="least-squares", penalty="none", 
-    optimizer="agd", lr_scheduler="backtracking", 
+    optimizer="agd", lr_scheduler="fast-backtracking", 
     max_iter=200, tol=1e-5, 
     verbose_bar=True, verbose=True, 
     print_every=10, record_every=10)
 
-learner.fit(data, T)
-theta_hat = learner.estimated_params
-print(theta_hat)
+learner.fit(X=data, end_time=T)
 
-print(learner.score(data, T))
+print(learner.estimated_params)
+
+print(learner.score(X=data, end_time=T))
 
 # Plot the estimated coefficients ---------------------------------------------
 

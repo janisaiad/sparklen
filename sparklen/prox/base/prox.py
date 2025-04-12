@@ -11,11 +11,8 @@ class Prox(ABC):
 
         if not isinstance(positive, bool):
             raise ValueError("The positivity constraint input should be a boolean.")
-        # if self._positive is not None:
-        #     warn("The positivity constraint has already been set. This will overwrite the existing one.", UserWarning)
         self._positive = positive
         
-        # self._is_setted = False
         self._pen_const = None
         self._start = None
         self._end = None
@@ -35,45 +32,17 @@ class Prox(ABC):
     def set_pen_const(self, pen_const):
         if not pen_const >= 0:
             raise ValueError("The penalization constant should be non-negative.")
-        # if self._is_pen_const_setted:
-        #     warn("The penalization constant has already been set. This will overwrite the existing one.", UserWarning)
         self._pen_const = pen_const
         self._is_pen_const_setted = True
         
     def set_application_range(self, start, end):
         if not start >= 0:
             raise ValueError("The start of apply range should begin from zero.")
-        # if self._start is not None:
-        #     warn("The start of apply range has already been set. This will overwrite the existing one.", UserWarning)
         self._start = start
         if not end >= 0:
             raise ValueError("The end of apply range should begin from zero.")
-        # if self._end is not None:
-        #     warn("The end of apply range has already been set. This will overwrite the existing one.", UserWarning)
         self._end = end
         self._is_application_range_setted = True
-        
-        
-    # def set_prox(self, pen_const, start, end):
-    #     if not pen_const >= 0:
-    #         raise ValueError("The penalization constant should be non-negative.")
-    #     if self._pen_const is not None:
-    #         warn("The penalization constant has already been set. This will overwrite the existing one.", UserWarning)
-    #     self._pen_const = pen_const
-        
-    #     if not start >= 0:
-    #         raise ValueError("The start of apply range should begin from zero.")
-    #     if self._start is not None:
-    #         warn("The start of apply range has already been set. This will overwrite the existing one.", UserWarning)
-    #     self._start = start
-        
-    #     if not end >= 0:
-    #         raise ValueError("The end of apply range should begin from zero.")
-    #     if self._end is not None:
-    #         warn("The end of apply range has already been set. This will overwrite the existing one.", UserWarning)
-    #     self._end = end
-        
-    #     self._is_setted = True
     
     @property
     def pen_const(self):
@@ -112,3 +81,6 @@ class Prox(ABC):
     def print_info(self):
         pass
     
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        return (f"{class_name}(positive={self._positive})")

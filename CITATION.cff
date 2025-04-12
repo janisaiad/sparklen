@@ -4,8 +4,8 @@ authors:
 - family-names: "Lacoste"
   given-names: "Romain Edmond"
   orcid: "https://orcid.org/0009-0006-7029-8000"
-title: "Sparkle"
-version: 1.0.0
+title: "Sparklen"
+version: 1.1.0
 date-released: 2025-02-25
 url: "https://github.com/romain-e-lacoste/sparkle"
 preferred-citation:
@@ -14,7 +14,7 @@ preferred-citation:
   - family-names: "Lacoste"
     given-names: "Romain Edmond"
     orcid: "https://orcid.org/0009-0006-7029-8000"
-  title: "Sparkle: A Statistical Learning Toolkit for High-Dimensional Hawkes Processes in Python"
+  title: "Sparklen: A Statistical Learning Toolkit for High-Dimensional Hawkes Processes in Python"
   year: 2025
   eprint: "2502.18979"
   archivePrefix: "arXiv"

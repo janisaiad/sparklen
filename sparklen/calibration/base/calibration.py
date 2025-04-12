@@ -57,7 +57,7 @@ class Calibration(ABC):
         self._best_score = None
         
     @abstractmethod
-    def calibrate(self, decay, data, end_time, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):
+    def calibrate(self, decay, data, end_time=None, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):
         # This part must be implemented in the subclasses method
         pass
     

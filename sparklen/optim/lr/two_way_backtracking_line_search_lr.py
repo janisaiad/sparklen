@@ -8,11 +8,11 @@ from tabulate import tabulate
 import numpy as np
 from numpy.linalg import norm
 
-class BacktrackingLineSearchLR(LearningRateScheduler):
+class TwoWayBacktrackingLineSearchLR(LearningRateScheduler):
     """
     Learning rate scheduler class.
 
-    This class implements a backtracking line-search to dynamically  
+    This class implements a two-way backtracking line-search to dynamically  
     adjust the step size at each iteration, ensuring stable and  
     efficient convergence of the descent process.
 
@@ -26,11 +26,13 @@ class BacktrackingLineSearchLR(LearningRateScheduler):
     def __init__(self, tau=0.5):
         super().__init__()
         self._tau = tau
+        
+        self._step_size = 1.0
     
     def step(self, search_point, loss_search_point, grad_search_point):
         """
         Determine the step size at a given iteration of the descent 
-        using backtracking line search.
+        using two-way backtracking line search.
         
         Parameters
         ----------
@@ -57,30 +59,39 @@ class BacktrackingLineSearchLR(LearningRateScheduler):
         """
         super().step(search_point, loss_search_point, grad_search_point)
         
-        self._step_size = 1.0
+        sigma = self._step_size
+        decreased = False  # Flag to track if step size was reduced
         
         while True:
             # Compute the tentative point with proximal operator
-            #print("step", self._step_size)
-            
-            tentative_point = search_point - self._step_size * grad_search_point
-            self._prox.apply(tentative_point, self._step_size)
+            tentative_point = search_point - sigma * grad_search_point
+            self._prox.apply(tentative_point, sigma)
                 
             # Compute the loss at the tentative point
             loss_tentative_point = self._model.loss(tentative_point)
             
             # Calculate the envelope 
-            envelope = loss_search_point + np.sum(grad_search_point * (tentative_point - search_point), axis=None) + 1. / (2 * self._step_size) * norm(tentative_point - search_point)**2
+            envelope = loss_search_point + np.sum(grad_search_point * (tentative_point - search_point), axis=None) + 1. / (2 * sigma) * norm(tentative_point - search_point)**2
     
             # Check if the condition is satisfied using the precomputed envelope
             if loss_tentative_point <= envelope:
-                break # Armijo condition satisfied, exit loop
-            self._step_size *= self._tau # Reduce step size
+                if decreased:
+                    break
+                if sigma / self._tau > 1.0:
+                    break # Accept step and exit
+                sigma /= self._tau
+                
+            # Otherwise, reduce step size
+            else:
+                sigma *= self._tau # Reduce step size
+                decreased = True
             
             # Break if step size is too small to avoid infinite loop
-            if self._step_size < 1e-10:  # Example threshold
+            if sigma < 1e-10:  # Example threshold
                 print("Warning: Step size became too small.")
                 break
+            
+        self._step_size = sigma
             
         # Compute the gradient at the tentative point
         grad_tentative_point = self._model.grad(tentative_point)
@@ -89,7 +100,7 @@ class BacktrackingLineSearchLR(LearningRateScheduler):
     
     def print_info(self):
         """ Display information about the instantiated model object. """
-        table = [["Learning rate scheduler", "Backtracking line-search"],
+        table = [["Learning rate scheduler", "Two-Way Backtracking line-search"],
                  ["Search decrease parameter", self._tau],
                  ["Current step size", self._step_size]]
         print(tabulate(table, headers="firstrow", tablefmt="grid"))

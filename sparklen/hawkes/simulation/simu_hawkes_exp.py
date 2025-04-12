@@ -184,6 +184,17 @@ class SimuHawkesExp():
         """
         raise NotImplementedError("This method is not yet implemented.")
     
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        return (f"{class_name}(\n"
+          f"  mu={self._mu},\n"
+          f"  alpha={self._alpha},\n"
+          f"  beta={self._beta},\n"
+          f"  end_time={self._end_time},\n"
+          f"  n_samples={self._n_samples},\n"
+          f"  random_state={self._generator}\n"
+          f")")
+
     def spectral_radius(self):
         """
         Compute and return the spectral radius of the interaction matrix.

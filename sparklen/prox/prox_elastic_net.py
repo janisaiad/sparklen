@@ -49,7 +49,7 @@ class ProxElasticNet(Prox):
         enforces the entries to be non-negative.
         This is a read-only property.
     """
-    def __init__(self, l1_ratio=0.5, positive=True):
+    def __init__(self, positive=True, l1_ratio=0.5):
         # Call the initializer of the base class Prox
         self._l1_ratio = l1_ratio
         super().__init__(positive)
@@ -64,11 +64,6 @@ class ProxElasticNet(Prox):
         """ Set the object with application range """
         # Call the base class logic
         super().set_application_range(start, end)
-        
-    # def set_prox(self, pen_const, start, end):
-    #     # Call the base class logic
-    #     super().set_prox(pen_const, start, end)
-    #     self._cpp_prox = CppProxL1(pen_const, start, end, self._positive)
         
     def apply(self, x, step_size):
         """
@@ -104,3 +99,7 @@ class ProxElasticNet(Prox):
                  ["End of apply range", self._end],
                  ["Positivity constraint", self._positive]]
         print(tabulate(table, headers="firstrow", tablefmt="grid"))
+        
+    def __repr__(self):
+        base_repr = super().__repr__()
+        return f"{base_repr[:-1]}, l1_ratio={self._l1_ratio})"

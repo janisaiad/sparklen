@@ -37,9 +37,9 @@ class ModelHawkes(ABC):
             if self._end_time is None:
                 raise AttributeError("The observation end-time must have been set to the ModelHawkes object to run this computation. You must call set_data() before calling loss().")
         if not self._is_decay_setted:
-            raise AttributeError("The kernel decay paremeter must have been set to the ModelHawkes object to run this computation")
+            raise AttributeError("The kernel decay parameter must have been set to the ModelHawkes object to run this computation")
     
-    def set_data(self, data, end_time):
+    def set_data(self, data, end_time=None):
         # Check data form
         if not len(data) >= 1:
             raise ValueError("The data should have at least one repetition")
@@ -55,11 +55,14 @@ class ModelHawkes(ABC):
             warn("The data has already been set. This will overwrite the existing one.", UserWarning)
         self._data = data
         # check end_time form
-        if end_time < 0:
-            raise ValueError("The upper bound of observation should be positive")
-        if self._end_time is not None:
-            warn("The observation end-time has already been set. This will overwrite the existing one.", UserWarning)
-        self._end_time = end_time
+        if end_time is None:
+            self._end_time = max([max((np.max(events, initial=0.0) for events in inner), default=0.0) for inner in data])
+        else:
+            if end_time < 0:
+                raise ValueError("The upper bound of observation should be positive")
+            if self._end_time is not None:
+                warn("The observation end-time has already been set. This will overwrite the existing one.", UserWarning)
+            self._end_time = end_time
         self._is_data_setted = True
         
     def n_repetitions(self):
@@ -195,5 +198,9 @@ class ModelHawkes(ABC):
     @abstractmethod
     def print_info(self):
         pass
+    
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        return (f"{class_name}(decay={self._decay})")
     
     

@@ -44,7 +44,7 @@ class ModelHawkesClassification(ABC):
         if self._decay is None:
             raise AttributeError("The kernel decay paremeter must have been set to run this computation")
     
-    def set_data(self, X, y, end_time):
+    def set_data(self, X, y, end_time=None):
         # Check training data form
         if not len(X) >= 1:
             raise ValueError("The training data should have at least one repetition")
@@ -69,11 +69,14 @@ class ModelHawkesClassification(ABC):
         self._y = y
         
        # Check end_time form
-        if end_time < 0:
-            raise ValueError("The upper bound of observation should be positive")
-        if self._end_time is not None:
-            warn("The observation end-time has already been set. This will overwrite the existing one.", UserWarning)
-        self._end_time = end_time
+        if end_time is None:
+            self._end_time = max([max((np.max(events, initial=0.0) for events in inner), default=0.0) for inner in X])
+        else:
+            if end_time < 0:
+                raise ValueError("The upper bound of observation should be positive")
+            if self._end_time is not None:
+                warn("The observation end-time has already been set. This will overwrite the existing one.", UserWarning)
+            self._end_time = end_time
         
         self._is_setted = True
     
@@ -228,3 +231,7 @@ class ModelHawkesClassification(ABC):
     @abstractmethod
     def print_info(self):
         pass
+    
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        return (f"{class_name}(decay={self._decay}, weights={self._weights})")

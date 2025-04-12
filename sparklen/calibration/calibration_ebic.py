@@ -109,7 +109,7 @@ class CalibrationEBIC(Calibration):
         
         self._gamma = gamma
         
-    def calibrate(self, decay, data, end_time, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):    
+    def calibrate(self, decay, data, end_time=None, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):    
         """
         Calibrate the regularization constant given training data.
         
@@ -127,9 +127,13 @@ class CalibrationEBIC(Calibration):
             Specifically, `data[i][j]` is a one-dimensional `ndarray` containing 
             the event times of the `j`-th component in the `i`-th realization.
         
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
         
         grid_max : float, default=2.0
             Upper bound of the searching grid. 
@@ -173,57 +177,12 @@ class CalibrationEBIC(Calibration):
         
         if refinement:
             # Perform a refined search around the best coarse parameter with refined_grid_step
-            refined_grid_min = max(0, best_kappa - grid_step)  # Ensure lower bound is not negative
+            refined_grid_min = max(0, best_kappa - grid_step + refined_grid_step)  # Ensure lower bound is not negative
             refined_grid_max = min(grid_max, best_kappa + grid_step)  # Prevent exceeding upper bound
-            refine_grid = np.arange(refined_grid_min, refined_grid_max, refined_grid_step)
+            refine_grid = np.arange(round(refined_grid_min, 2), round(refined_grid_max, 2), refined_grid_step)
             best_kappa, best_score = self._search_grid(refine_grid, title="Refined Searching")
             
         self._best_kappa, self._best_score = best_kappa, best_score
-    
-        
-    # def set_model(self, model):
-    #     model.check_set_state()
-    #     self._model = model
-    #     self._is_model_setted = True
-        
-    #     self._model_likelihood = ModelHawkesExpLogLikelihood(self._model.decay)
-    #     self._model_likelihood.set_data(self._model.data, self._model.end_time)
-    
-    # def set_optimizer(self, optimizer="agd", penalty="l1", lr_scheduler="backtracking", max_iter=100, tol=1e-5):
-    #     if not self._is_model_setted:
-    #         raise AttributeError("The model has not been setted to the GridSearchEBIC object. You must call set_model() before set_optimizer().")
-        
-    #     if penalty not in self._penalties:
-    #         raise ValueError(f"The choosen penalty, '{penalty}', is not available. Choose instead from {list(self._penalties.keys())}.")
-    #     self._prox = self._penalties[penalty]()
-    #     self._prox.set_application_range(start=1, end=self._model.n_components()+1)
-    #     self._prox.set_pen_const(pen_const=0.0)
-        
-    #     if optimizer not in self._optimizers:
-    #         raise ValueError(f"The choosen optimizer, '{optimizer}', is not available. Choose instead from {list(self._optimizers.keys())}.")
-    #     self._optimizer = self._optimizers[optimizer](lr_scheduler, max_iter, tol, verbose_bar=False, verbose=False, print_every=1, record_every=10)
-        
-    #     self._optimizer.set_model(self._model)
-    #     self._optimizer.set_prox(self._prox)
-        
-    #     self._is_optimizer_setted = True
-        
-    # def grid_search(self, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):
-        
-    #     if not self._is_optimizer_setted:
-    #         raise AttributeError("The optimizer has not been setted to the GridSearchEBIC object. You must call set_optimizer() before grid_search().")
-        
-    #     coarse_grid = np.arange(0, grid_max, grid_step)
-    #     best_kappa, best_score = self._search_grid(coarse_grid)
-        
-    #     if refinement:
-    #         # Perform a refined search around the best coarse parameter with refined_grid_step
-    #         refined_grid_min = max(0, best_kappa - grid_step)  # Ensure lower bound is not negative
-    #         refined_grid_max = min(grid_max, best_kappa + grid_step)  # Prevent exceeding upper bound
-    #         refine_grid = np.arange(refined_grid_min, refined_grid_max, refined_grid_step)
-    #         best_kappa, best_score = self._search_grid(refine_grid, title="Refined Searching")
-            
-    #     self._best_kappa, self._best_score = best_kappa, best_score
         
     def _search_grid(self, grid, title="Searching"):
         """
@@ -252,7 +211,7 @@ class CalibrationEBIC(Calibration):
 
                 if score < best_score:
                     best_score = score
-                    best_kappa = kappa
+                    best_kappa = round(kappa, 2)
 
         except Exception as e:
             if pbar:

@@ -1,7 +1,7 @@
 # Author: Romain E. Lacoste
 # License: BSD-3-Clause
 
-from sparklen.optim.lr import LipschitzLR, BacktrackingLineSearchLR
+from sparklen.optim.lr import LipschitzLR, BacktrackingLineSearchLR, TwoWayBacktrackingLineSearchLR
 
 from abc import ABC, abstractmethod
 
@@ -11,7 +11,8 @@ class Optimizer(ABC):
     
     _lr_schedulers = {
         "lipschitz" : LipschitzLR,
-        "backtracking" : BacktrackingLineSearchLR
+        "backtracking" : BacktrackingLineSearchLR,
+        "fast-backtracking" : TwoWayBacktrackingLineSearchLR
     }
     
     def __init__(self, lr_scheduler, max_iter, tol, verbose_bar=True, verbose=True, print_every=10, record_every=1):
@@ -30,6 +31,7 @@ class Optimizer(ABC):
             "x": [],
             "loss": [],
             "grad": [],
+            "lr": [],
             "rel_loss": [],
             "iter": []
         }
@@ -116,25 +118,27 @@ class Optimizer(ABC):
 
         # Extract relevant history information
         loss_history = self._history["loss"]
+        lr_history = self._history["lr"]
         rel_loss_history = self._history["rel_loss"]
         iteration_history = self._history["iter"]
 
         # Combine them into a list of rows
         history_table = []
         for i in range(len(iteration_history)):
-            history_table.append([iteration_history[i], loss_history[i], rel_loss_history[i]])
+            history_table.append([iteration_history[i], loss_history[i], lr_history[i], rel_loss_history[i]])
 
         # Define headers for the table
-        headers = ["Iteration", "Loss", "Tolerance"]
+        headers = ["Iter", "Loss", "Lr", "Tol"]
 
         # Print the table using tabulate
         print(tabulate(history_table, headers=headers, tablefmt="grid"))
         
     
-    def record_history(self, x, loss_x, grad_x, rel_loss, iteration):
+    def record_history(self, x, loss_x, grad_x, step_size, rel_loss, iteration):
         self._history["x"].append(x)
         self._history["loss"].append(loss_x)
         self._history["grad"].append(grad_x)
+        self._history["lr"].append(step_size)
         self._history["rel_loss"].append(rel_loss)
         self._history["iter"].append(iteration)
     

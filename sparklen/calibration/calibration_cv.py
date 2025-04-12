@@ -108,7 +108,7 @@ class CalibrationCV(Calibration):
         
         self._cv = cv
         
-    def calibrate(self, decay, data, end_time, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):    
+    def calibrate(self, decay, data, end_time=None, grid_max=2.0, grid_step=0.1, refinement=True, refined_grid_step=0.01):    
         """
         Calibrate the regularization constant given training data.
         
@@ -126,9 +126,13 @@ class CalibrationCV(Calibration):
             Specifically, `data[i][j]` is a one-dimensional `ndarray` containing 
             the event times of the `j`-th component in the `i`-th realization.
         
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
         
         grid_max : float, default=2.0
             Upper bound of the searching grid. 
@@ -172,9 +176,9 @@ class CalibrationCV(Calibration):
         
         if refinement:
             # Perform a refined search around the best coarse parameter with refined_grid_step
-            refined_grid_min = max(0, best_kappa - grid_step)  # Ensure lower bound is not negative
+            refined_grid_min = max(0, best_kappa - grid_step + refined_grid_step)  # Ensure lower bound is not negative
             refined_grid_max = min(grid_max, best_kappa + grid_step)  # Prevent exceeding upper bound
-            refine_grid = np.arange(refined_grid_min, refined_grid_max, refined_grid_step)
+            refine_grid = np.arange(round(refined_grid_min, 2), round(refined_grid_max, 2), refined_grid_step)
             best_kappa, best_score = self._search_grid(decay, data, end_time, refine_grid, title="Refined Searching")
             
         self._best_kappa, self._best_score = best_kappa, best_score
@@ -206,7 +210,7 @@ class CalibrationCV(Calibration):
 
                 if score < best_score:
                     best_score = score
-                    best_kappa = kappa
+                    best_kappa = round(kappa, 2)
 
         except Exception as e:
             if pbar:
@@ -231,8 +235,6 @@ class CalibrationCV(Calibration):
         for train_index, val_index in kf.split(data):
             data_train = [data[i] for i in train_index]
             data_val = [data[i] for i in val_index]
-            # data_train = list(itemgetter(*train_index)(data))
-            # data_val = list(itemgetter(*val_index)(data))
             
             model_train = self._losses[self._str_loss](decay)
             model_train.set_data(data_train, end_time)

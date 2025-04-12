@@ -123,7 +123,7 @@ class ERMCLassifier():
         return ERMCLassifier._proj_operator(x-eta*g)
     
         
-    def fit(self, X, y, end_time):
+    def fit(self, X, y, end_time=None):
         """
         Build an ERM classifier from the training set `(X, y)`.
         
@@ -139,9 +139,13 @@ class ERMCLassifier():
             The class labels for each training sample. Each entry is an 
             integer representing the class membership.
         
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
             
         Returns
         -------
@@ -215,7 +219,7 @@ class ERMCLassifier():
             
         self._is_fitted = True
     
-    def predict(self, X, end_time):
+    def predict(self, X, end_time=None):
         """
         Predict class labels for `X`.
 
@@ -233,9 +237,13 @@ class ERMCLassifier():
             is a one-dimensional `ndarray` containing the event times of a  
             specific component.  
             
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
 
         Returns
         -------
@@ -245,7 +253,7 @@ class ERMCLassifier():
         probabilities = self.predict_proba(X, end_time)
         return np.argmax(probabilities, axis=1)
     
-    def predict_proba(self, X, end_time):
+    def predict_proba(self, X, end_time=None):
         """
         Predict class probabilities for X.
         
@@ -260,9 +268,13 @@ class ERMCLassifier():
             is a one-dimensional `ndarray` containing the event times of a  
             specific component.  
             
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
             
         Returns
         -------
@@ -272,6 +284,9 @@ class ERMCLassifier():
         if not self._is_fitted:
                 raise ValueError("Training has not been completed. You must call fit() before getting the predict class probabilities.")
         
+        if end_time is None:
+            end_time = max([max((np.max(events, initial=0.0) for events in inner), default=0.0) for inner in X])
+            
         n = len(X)
         K, M = self._estimated_params.shape[:2]
 
@@ -281,13 +296,13 @@ class ERMCLassifier():
             for k in range(K):
                 model = CppModelHawkesExpLogLikelihoodSingle(M)
                 F_k = model.compute_loss(X[rep], end_time, self._decay, self._estimated_params[k], False)
-                if (F_k >= 709):
-                    F_k = 709
+                if (F_k >= np.log(np.finfo(np.float64).max)):
+                    F_k = np.log(np.finfo(np.float64).max)
                 probabilities[rep][k] = self._weights[k] * np.exp(F_k)
             probabilities[rep, :] /= np.sum(probabilities[rep, :])
         return probabilities 
     
-    def score(self, X, y, end_time):
+    def score(self, X, y, end_time=None):
         """
         Return the mean accuracy on the given test data and labels.
         
@@ -305,9 +320,13 @@ class ERMCLassifier():
         y : ndarray of shape (n,)
             The true class labels for each test sample.
             
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
         
         Returns
         -------
@@ -318,7 +337,7 @@ class ERMCLassifier():
         
         return np.mean(y_pred == y)
     
-    def plot_score_cm(self, X, y, end_time, save_path=None, save_format='png', dpi=300, use_latex=False):
+    def plot_score_cm(self, X, y, end_time=None, save_path=None, save_format='png', dpi=300, use_latex=False):
         """
         Plot the confusion matrix to visualize the classification performance 
         of the ERM classifier.
@@ -343,9 +362,13 @@ class ERMCLassifier():
         y : ndarray of shape (n,)
             The true class labels for each test sample.
             
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
             
         save_path : str, optional, default=None
             The path where the plot will be saved. If not provided, the plot will not be saved.
@@ -364,5 +387,9 @@ class ERMCLassifier():
         
         plot_confusion_matrix(y, y_pred, save_path, save_format, dpi, use_latex)
 
-        
+    def __repr__(self):
+        class_name = self.__class__.__name__
+        return (f"{class_name}(decay={self._decay}, gamma0={self._gamma0}, max_iter={self._max_iter}, tol={self._tol}"
+                f"verbose_bar={self._verbose_bar}, verbose={self._verbose}, print_every={self._print_every})")
+
         

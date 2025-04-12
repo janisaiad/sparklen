@@ -62,30 +62,30 @@ data = hawkes.timestamps
 learner_lasso_cv = LearnerHawkesExp(
     decay=beta, loss="least-squares", 
     penalty="lasso", kappa_choice="cv",
-    optimizer="agd", lr_scheduler="backtracking", 
+    optimizer="agd", lr_scheduler="fast-backtracking", 
     max_iter=200, tol=1e-5, 
     penalty_mu=False, cv=10,
     verbose_bar=True, verbose=True, 
     print_every=10, record_every=10)
 
-learner_lasso_cv.fit(data, T)
+learner_lasso_cv.fit(X=data, end_time=T)
 theta_hat_lasso_cv = learner_lasso_cv.estimated_params
 
 
 learner_lasso_ebic = LearnerHawkesExp(
     decay=beta, loss="least-squares", 
     penalty="lasso", kappa_choice="ebic",
-    optimizer="agd", lr_scheduler="backtracking", 
+    optimizer="agd", lr_scheduler="fast-backtracking", 
     max_iter=200, tol=1e-5, 
     penalty_mu=False, gamma=1.0,
     verbose_bar=True, verbose=True, 
     print_every=10, record_every=10)
 
-learner_lasso_ebic.fit(data, T)
+learner_lasso_ebic.fit(X=data, end_time=T)
 theta_hat_lasso_ebic = learner_lasso_ebic.estimated_params
 
-print("Score learner lasso cv:", learner_lasso_cv.score(data, T))
-print("Score learner lasso ebic:", learner_lasso_ebic.score(data, T))
+print("Score learner lasso cv:", learner_lasso_cv.score(X=data, end_time=T))
+print("Score learner lasso ebic:", learner_lasso_ebic.score(X=data, end_time=T))
 
 # Plot the support of estimated coefficients ----------------------------------
 

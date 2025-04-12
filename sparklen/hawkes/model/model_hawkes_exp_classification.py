@@ -53,7 +53,7 @@ class ModelHawkesExpClassification(ModelHawkesClassification):
         # Call the initializer of the base class ModelHawkesClassification
         super().__init__(decay, weights)
 
-    def set_data(self, X, y, end_time):
+    def set_data(self, X, y, end_time=None):
         """
         Initialize the model with data and a specified time horizon.
 
@@ -70,9 +70,13 @@ class ModelHawkesExpClassification(ModelHawkesClassification):
         Y : ndarray of shape (n,)
             Associated class labels for each realization.
             
-        end_time : float
+        end_time : float, default=None
             The end time of the observation period. The time horizon defines
             the interval `[0, T]` over which the Hawkes process is observed.
+            
+            - If `end_time` is provided, it is used as the upper bound of the observation window.  
+            - If `end_time=None`, it is automatically set to the largest observed event time  
+              across all components and repetitions. 
         """
         # Call the base class logic
         super().set_data(X, y, end_time)
@@ -168,4 +172,7 @@ class ModelHawkesExpClassification(ModelHawkesClassification):
                  ["Observation uppper-bound", self._end_time],
                  ["Decay of the kernel", self._decay]]
         print(tabulate(table, headers="firstrow", tablefmt="grid"))
+        
+    def __repr__(self):
+        return super().__repr__()
 

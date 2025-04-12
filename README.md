@@ -112,8 +112,8 @@ pip install .
 If you found this package useful, please consider citing it in your work:
 
 ```bibtex
-@article{lacoste2025sparkle,
-      title={Sparkle: A Statistical Learning Toolkit for High-Dimensional Hawkes Processes in Python}, 
+@article{lacoste2025sparklen,
+      title={Sparklen: A Statistical Learning Toolkit for High-Dimensional Hawkes Processes in Python}, 
       author={Lacoste, Romain E.},
       year={2025},
       eprint={2502.18979},
