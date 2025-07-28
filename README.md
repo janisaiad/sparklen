@@ -107,6 +107,13 @@ Once your environment is ready, install the package by running:
 pip install .
 ```
 
+You can also use `uv` to install the package.
+
+```bash
+uv pip install -e .
+```
+
+
 ## Citing this Work
 
 If you found this package useful, please consider citing it in your work:
