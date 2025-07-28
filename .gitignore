@@ -55,8 +55,8 @@ ENV/
 .spyproject
 
 # vscode
-.vscode
-.specstory
+.vscode/
+.specstory/
 
 # Eclipse IDE files
 .project
